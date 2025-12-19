@@ -4,17 +4,30 @@ from validators import Validator
 from models import RegistrationRequest
 
 class ValidatorManager:
+    """
+    Manages and executes a list of validation rules.
+
+    Attributes:
+        validators (List[Validator]): List of validator instances.
+    """
     def __init__(self, validators: List[Validator]):
         """
-        ValidatorManager bergantung pada abstraksi Validator (DIP).
-        Untuk menambah aturan baru, cukup tambahkan instance Validator baru ke daftar.
+        Initialize the ValidatorManager with a list of validators.
+
+        Args:
+            validators (List[Validator]): List of validator instances.
         """
         self.validators = validators
 
     def validate_all(self, request: RegistrationRequest) -> Tuple[bool, List[str]]:
         """
-        Jalankan semua validator. Kembalikan (is_all_valid, messages)
-        Manager tidak perlu tahu detail tiap validator (OCP).
+        Run all validators on the given registration request.
+
+        Args:
+            request (RegistrationRequest): The registration request to validate.
+
+        Returns:
+            Tuple[bool, List[str]]: Overall validation result and messages from all validators.
         """
         messages = []
         for v in self.validators:
